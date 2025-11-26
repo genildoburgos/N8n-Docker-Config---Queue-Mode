@@ -2,6 +2,12 @@
 
 Este repositório contém uma configuração Docker Compose para executar o n8n em modo "queue" (com workers), usando PostgreSQL como banco de dados e Redis como backend de filas.
 
+**Documentação oficial:**
+- Guia de Queue Mode: https://docs.n8n.io/hosting/scaling/queue-mode/
+- Variáveis de ambiente (Queue Mode): https://docs.n8n.io/hosting/configuration/environment-variables/queue-mode/
+- Chave de criptografia (exemplos): https://docs.n8n.io/hosting/configuration/configuration-examples/encryption-key/
+- Exemplo no repositório de docs do n8n: https://github.com/n8n-io/n8n-docs/blob/main/docs/hosting/configuration/configuration-examples/encryption-key.md
+
 **Objetivo:**
 - Fornecer uma configuração mínima e reutilizável para executar o n8n em produção/local com execução de workflows em fila (separando o serviço principal dos workers).
 
@@ -18,6 +24,11 @@ Este repositório contém uma configuração Docker Compose para executar o n8n 
 - `POSTGRES_DB` : nome do banco (ex.: `n8n`).
 
 Coloque o arquivo `.env` na raiz do projeto (mesma pasta de `docker-compose.yml`). O `docker-compose` irá carregar essas variáveis automaticamente.
+
+Veja também (documentação oficial):
+- Variáveis de ambiente para Queue Mode: https://docs.n8n.io/hosting/configuration/environment-variables/queue-mode/
+- Como gerar/usar a `N8N_ENCRYPTION_KEY`: https://docs.n8n.io/hosting/configuration/configuration-examples/encryption-key/  
+- Exemplo no repositório de documentação do n8n: https://github.com/n8n-io/n8n-docs/blob/main/docs/hosting/configuration/configuration-examples/encryption-key.md
 
 **Como rodar (PowerShell no Windows):**
 1. Abra um terminal PowerShell na pasta do projeto (`c:\Users\...\n8n-devops`).
@@ -61,3 +72,35 @@ docker-compose down -v
 - Use `docker-compose logs` para diagnosticar problemas de inicialização e healthchecks.
 
 Se quiser, eu posso subir os containers agora ou validar a configuração localmente — quer que eu execute os comandos para você? 
+
+**Imagens / Capturas**
+
+Você pode adicionar diagramas e capturas de tela ao `README` criando uma pasta `images/` na raiz do projeto e colocando os arquivos lá. Recomendações de boas práticas:
+- Use nomes simples, minúsculos e com hífen: `diagrama-arquitetura.png`, `screenshot-workflow-1.png`.
+- Adicione texto alternativo (`alt`) para acessibilidade.
+
+Exemplos de como referenciar as imagens no Markdown:
+
+```
+![Diagrama de arquitetura](images/diagrama-arquitetura.png)
+```
+
+Se quiser controlar o tamanho diretamente no `README` (ou para visualização no GitHub), use HTML:
+
+```
+<img src="images/screenshot-workflow-1.png" alt="Captura do workflow" width="700" />
+```
+
+Sugestão de seções para organizar imagens:
+- **Diagrama de arquitetura** — coloque aqui um diagrama explicando componentes (Postgres, Redis, n8n-main, n8n-worker).
+- **Capturas de tela** — coloque screenshots da UI do n8n, exemplos de workflows ou logs.
+
+Após adicionar as imagens, faça commit normalmente:
+
+```
+git add images/* README.md
+git commit -m "docs: adicionar placeholders e instruções para imagens"
+git push
+```
+
+Se quiser, crio a pasta `images/` vazia e adiciono um arquivo `.gitkeep` para você começar — quer que eu faça isso?
