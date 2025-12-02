@@ -28,6 +28,12 @@ services:
       timeout: 3s
       retries: 10
 
+  gotenberg:
+    image: gotenberg/gotenberg:8
+    restart: always
+    ports:
+      - "3000:3000"
+
   n8n-main:
     image: n8nio/n8n:latest
     restart: always
@@ -37,34 +43,27 @@ services:
       - .env
     environment:
       NODE_ENV: production
-
       N8N_HOST: ${N8N_HOST}
       N8N_PROTOCOL: ${N8N_PROTOCOL}
       WEBHOOK_URL: ${N8N_PROTOCOL}://${N8N_HOST} 
-
       DB_TYPE: postgresdb
       DB_POSTGRESDB_HOST: postgres
       DB_POSTGRESDB_PORT: 5432
       DB_POSTGRESDB_DATABASE: ${POSTGRES_DB}
       DB_POSTGRESDB_USER: ${POSTGRES_USER}
       DB_POSTGRESDB_PASSWORD: ${POSTGRES_PASSWORD}
-
       EXECUTIONS_MODE: queue
       QUEUE_BULL_REDIS_HOST: redis
       QUEUE_BULL_REDIS_PORT: 6379
       OFFLOAD_MANUAL_EXECUTIONS_TO_WORKERS: "true"
       N8N_RUNNERS_ENABLED: "true"
       QUEUE_HEALTH_CHECK_ACTIVE: "true"
-
       N8N_ENCRYPTION_KEY: ${N8N_ENCRYPTION_KEY}
       N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: "true"
-
       N8N_BLOCK_ENV_ACCESS_IN_NODE: "false"
       N8N_GIT_NODE_DISABLE_BARE_REPOS: "true"
-
       EXECUTIONS_DATA_PRUNE: "true"
       EXECUTIONS_DATA_MAX_AGE: "168"
-
     volumes:
       - n8n_data:/home/node/.n8n
     depends_on:
@@ -85,17 +84,14 @@ services:
       DB_POSTGRESDB_DATABASE: ${POSTGRES_DB}
       DB_POSTGRESDB_USER: ${POSTGRES_USER}
       DB_POSTGRESDB_PASSWORD: ${POSTGRES_PASSWORD}
-
       EXECUTIONS_MODE: queue
       QUEUE_BULL_REDIS_HOST: redis
       QUEUE_BULL_REDIS_PORT: 6379
-
       N8N_ENCRYPTION_KEY: ${N8N_ENCRYPTION_KEY}
       N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: "true"
       N8N_RUNNERS_ENABLED: "true"
       N8N_BLOCK_ENV_ACCESS_IN_NODE: "false"
       N8N_GIT_NODE_DISABLE_BARE_REPOS: "true"
-
     command: worker
     depends_on:
       postgres:

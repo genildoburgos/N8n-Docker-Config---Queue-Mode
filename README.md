@@ -5,11 +5,16 @@ Este repositório contém uma configuração Docker Compose para executar o n8n 
 **Objetivo:**
 - Fornecer uma configuração mínima e reutilizável para executar o n8n em produção/local com execução de workflows em fila (separando o serviço principal dos workers).
 
-**O que o projeto roda:**
-- **Postgres**: armazena dados do n8n.
-- **Redis**: usado pelo Bull (fila) para enfileirar execuções.
-- **n8n-main**: container principal (UI + API) exposto em `http://localhost:5678`.
-- **n8n-worker**: worker que processa execuções offloadadas.
+**Resumo do que roda:**
+- **Postgres**: banco de dados do n8n.
+- **Redis**: backend de filas (Bull).
+- **gotenberg**: serviço de conversão/geração de PDFs (exposto na porta `3000`).
+- **n8n-main**: serviço principal (UI + API) — porta `5678`.
+- **n8n-worker**: worker que processa execuções enfileiradas.
+
+**Principais mudanças nesta implementação**
+- **Feat:** adicionado serviço `gotenberg` ao `docker-compose.yml`.
+- **Feat:** `n8n-main` agora recebe `N8N_HOST`, `N8N_PROTOCOL` e `WEBHOOK_URL` via `environment` usando expansão de variáveis (`${VAR}`) — exemplo: `WEBHOOK_URL: ${N8N_PROTOCOL}://${N8N_HOST}`.
 
 **Arquivo `.env`** (exemplo presente no repositório):
 - `N8N_ENCRYPTION_KEY` : chave de criptografia do n8n (ex.: `jNQU76AbfBu4T46nyzeZJTcVz2WgBn4X`). Altere para uma chave forte e secreta.
