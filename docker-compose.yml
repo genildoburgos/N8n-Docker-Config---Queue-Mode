@@ -56,8 +56,10 @@ services:
       QUEUE_BULL_REDIS_HOST: redis
       QUEUE_BULL_REDIS_PORT: 6379
       OFFLOAD_MANUAL_EXECUTIONS_TO_WORKERS: "true"
-      N8N_RUNNERS_ENABLED: "false"
       QUEUE_HEALTH_CHECK_ACTIVE: "true"
+
+      # importantíssimo pra permitir require externo sem travas
+      N8N_RUNNERS_ENABLED: "false"
 
       N8N_ENCRYPTION_KEY: ${N8N_ENCRYPTION_KEY}
       N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: "true"
@@ -68,12 +70,15 @@ services:
       EXECUTIONS_DATA_PRUNE: "true"
       EXECUTIONS_DATA_MAX_AGE: "168"
 
-      # (opcional, mas ajuda quando usa puppeteer no Code node)
+      # puppeteer no Code node
+      NODE_FUNCTION_ALLOW_EXTERNAL: "puppeteer"
+      NODE_FUNCTION_ALLOW_BUILTIN: "*"
+
+      # chromium do sistema
       PUPPETEER_EXECUTABLE_PATH: /usr/bin/chromium-browser
       PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"
       PUPPETEER_ARGS: "--no-sandbox --disable-setuid-sandbox"
-      NODE_FUNCTION_ALLOW_EXTERNAL: "puppeteer"
-      NODE_FUNCTION_ALLOW_BUILTIN: "*"
+      N8N_TRUST_PROXY: "true"
 
     volumes:
       - n8n_data:/home/node/.n8n
