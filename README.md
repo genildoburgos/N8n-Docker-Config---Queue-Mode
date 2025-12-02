@@ -16,6 +16,8 @@ Este repositório contém uma configuração Docker Compose para executar o n8n 
 - `POSTGRES_USER` : usuário do Postgres (ex.: `n8n`).
 - `POSTGRES_PASSWORD` : senha do Postgres (ex.: `n8n_pass`).
 - `POSTGRES_DB` : nome do banco (ex.: `n8n`).
+- `N8N_HOST` : host público onde o n8n será acessível (ex.: `n8n.example.com`). Usado para construir URLs externas e webhooks.
+- `N8N_PROTOCOL` : protocolo usado (`http` ou `https`). Ex.: `https`.
 
 Coloque o arquivo `.env` na raiz do projeto (mesma pasta de `docker-compose.yml`). O `docker-compose` irá carregar essas variáveis automaticamente.
 
