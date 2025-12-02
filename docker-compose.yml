@@ -43,7 +43,7 @@ services:
 
       N8N_HOST: ${N8N_HOST}
       N8N_PROTOCOL: ${N8N_PROTOCOL}
-      WEBHOOK_URL: ${N8N_PROTOCOL}://${N8N_HOST} 
+      WEBHOOK_URL: ${N8N_PROTOCOL}://${N8N_HOST}
 
       DB_TYPE: postgresdb
       DB_POSTGRESDB_HOST: postgres
