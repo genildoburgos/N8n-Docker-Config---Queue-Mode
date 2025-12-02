@@ -1,4 +1,4 @@
-FROM docker.n8n.io/n8nio/n8n
+FROM docker.n8n.io/n8nio/n8n:latest
 
 USER root
 
@@ -19,6 +19,10 @@ RUN apk add --no-cache \
 # Tell Puppeteer to use installed Chrome instead of downloading it
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
     PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+
+# >>>> instalar puppeteer DENTRO do n8n para o Code node achar
+RUN cd /usr/local/lib/node_modules/n8n \
+  && npm install puppeteer --force
 
 # Install n8n-nodes-puppeteer in a permanent location
 RUN mkdir -p /opt/n8n-custom-nodes && \
